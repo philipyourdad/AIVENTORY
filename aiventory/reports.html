@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIVENTORY - Reports</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <img src="assets/logo.jpg" alt="AIVENTORY Logo" class="logo">
+                <h2>AIVENTORY</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-link">
+                    <span class="material-icons">dashboard</span>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+                <a href="inventory.html" class="nav-link">
+                    <span class="material-icons">inventory</span>
+                    <span class="nav-text">Inventory</span>
+                </a>
+                <a href="suppliers.html" class="nav-link">
+                    <span class="material-icons">people</span>
+                    <span class="nav-text">Suppliers</span>
+                </a>
+                <a href="scan.html" class="nav-link">
+                    <span class="material-icons">qr_code_scanner</span>
+                    <span class="nav-text">Barcode Scan</span>
+                </a>
+                <a href="reports.html" class="active" class="nav-link">
+                    <span class="material-icons">assessment</span>
+                    <span class="nav-text">Reports</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <span class="material-icons">settings</span>
+                    <span class="nav-text">Settings</span>
+                </a>
+            </nav>
+            <a href="index.html" class="logout-btn">
+                <span class="material-icons">logout</span>
+                <span class="nav-text">Log Out</span>
+            </a>
+            <div class="user-profile">
+                <img src="assets/icons/arthur.jpg" alt="User">
+                <div>
+                    <p class="username">Admin User</p>
+                    <p class="user-role">Administrator</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <header class="main-header">
+                <h1>Reports & Analytics</h1>
+                <div class="header-actions">
+                    <button id="generateReport" class="btn btn-primary">
+                        <span class="material-icons">picture_as_pdf</span>
+                        Generate PDF
+                    </button>
+                    <button id="exportData" class="btn btn-outline">
+                        <span class="material-icons">download</span>
+                        Export Data
+                    </button>
+                </div>
+            </header>
+            
+            <div class="report-filters">
+                <div class="filter-group">
+                    <label for="reportType">Report Type</label>
+                    <select id="reportType">
+                        <option value="inventory">Inventory Summary</option>
+                        <option value="sales">Sales Trends</option>
+                        <option value="suppliers">Supplier Performance</option>
+                        <option value="stockouts">Stockout History</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="timePeriod">Time Period</label>
+                    <select id="timePeriod">
+                        <option value="7days">Last 7 Days</option>
+                        <option value="30days">Last 30 Days</option>
+                        <option value="90days">Last Quarter</option>
+                        <option value="custom">Custom Range</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group" id="customDateRange" style="display:none;">
+                    <label>Date Range</label>
+                    <div class="date-inputs">
+                        <input type="date" id="startDate">
+                        <span>to</span>
+                        <input type="date" id="endDate">
+                    </div>
+                </div>
+                
+                <button id="applyFilters" class="btn btn-primary">Apply</button>
+            </div>
+            
+            <div class="report-container">
+                <div class="report-summary">
+                    <div class="summary-card">
+                        <h3>Inventory Status</h3>
+                        <div class="summary-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">1,245</span>
+                                <span class="stat-label">Total Items</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value warning">12</span>
+                                <span class="stat-label">Low Stock</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value danger">3</span>
+                                <span class="stat-label">Critical</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card">
+                        <h3>Supplier Performance</h3>
+                        <div class="supplier-performance">
+                            <div class="performance-metric">
+                                <span class="metric-value">4.2</span>
+                                <span class="metric-label">Avg. Rating</span>
+                            </div>
+                            <div class="performance-metric">
+                                <span class="metric-value">2.3</span>
+                                <span class="metric-label">Avg. Lead Time (days)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="report-charts">
+                    <div class="chart-card">
+                        <h3>Inventory Turnover</h3>
+                        <div class="chart-container">
+                            <canvas id="turnoverChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <h3>Stockout Predictions</h3>
+                        <div class="chart-container">
+                            <canvas id="stockoutChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card full-width">
+                        <h3>Monthly Demand Forecast</h3>
+                        <div class="chart-container">
+                            <canvas id="demandChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/reports.js"></script>
+</body>
+</html>

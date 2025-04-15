@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIVENTORY - Settings</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <img src="assets/logo.jpg" alt="AIVENTORY Logo" class="logo">
+                <h2>AIVENTORY</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-link">
+                    <span class="material-icons">dashboard</span>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+                <a href="inventory.html" class="nav-link">
+                    <span class="material-icons">inventory</span>
+                    <span class="nav-text">Inventory</span>
+                </a>
+                <a href="suppliers.html" class="nav-link">
+                    <span class="material-icons">people</span>
+                    <span class="nav-text">Suppliers</span>
+                </a>
+                <a href="scan.html" class="nav-link">
+                    <span class="material-icons">qr_code_scanner</span>
+                    <span class="nav-text">Barcode Scan</span>
+                </a>
+                <a href="reports.html" class="nav-link">
+                    <span class="material-icons">assessment</span>
+                    <span class="nav-text">Reports</span>
+                </a>
+                <a href="settings.html" class="active" class="nav-link">
+                    <span class="material-icons">settings</span>
+                    <span class="nav-text">Settings</span>
+                </a>
+            </nav>
+            <a href="index.html" class="logout-btn">
+                <span class="material-icons">logout</span>
+                <span class="nav-text">Log Out</span>
+            </a>
+            <div class="user-profile">
+                <img src="assets/icons/arthur.jpg" alt="User">
+                <div>
+                    <p class="username">Admin User</p>
+                    <p class="user-role">Administrator</p>
+                </div>
+            </div>
+        </div>     
+        <div class="main-content">
+            <header class="main-header">
+                <h1>System Settings</h1>
+            </header>
+            
+            <div class="settings-tabs">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="general">General</button>
+                    <button class="tab-btn" data-tab="notifications">Notifications</button>
+                    <button class="tab-btn" data-tab="ai">AI Configuration</button>
+                    <button class="tab-btn" data-tab="users">User Management</button>
+                </div>
+                
+                <div class="tab-content active" id="general-tab">
+                    <form id="generalSettings">
+                        <div class="form-group">
+                            <label for="companyName">Company Name</label>
+                            <input type="text" id="companyName" value="AIVENTORY">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="timezone">Timezone</label>
+                            <select id="timezone">
+                                <option value="UTC-5">Eastern Time (UTC-5)</option>
+                                <option value="UTC-6">Central Time (UTC-6)</option>
+                                <option value="UTC-7">Mountain Time (UTC-7)</option>
+                                <option value="UTC-8">Pacific Time (UTC-8)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="dateFormat">Date Format</label>
+                            <select id="dateFormat">
+                                <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                                <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                                <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="barcodePrefix">Barcode Prefix</label>
+                            <input type="text" id="barcodePrefix" placeholder="e.g., INV">
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="reset" class="btn btn-outline">Reset</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="tab-content" id="notifications-tab">
+                    <form id="notificationSettings">
+                        <h3>Alert Thresholds</h3>
+                        <div class="form-group">
+                            <label for="lowStockThreshold">Low Stock Threshold (%)</label>
+                            <input type="number" id="lowStockThreshold" min="1" max="100" value="20">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="criticalStockThreshold">Critical Stock Threshold (%)</label>
+                            <input type="number" id="criticalStockThreshold" min="1" max="100" value="10">
+                        </div>
+                        
+                        <h3>Notification Methods</h3>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="emailAlerts" checked>
+                            <label for="emailAlerts">Email Alerts</label>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="pushAlerts" checked>
+                            <label for="pushAlerts">Push Notifications</label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="alertEmail">Alert Email Address</label>
+                            <input type="email" id="alertEmail" placeholder="alerts@yourcompany.com">
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="reset" class="btn btn-outline">Reset</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="tab-content" id="ai-tab">
+                    <form id="aiSettings">
+                        <h3>Prediction Model</h3>
+                        <div class="form-group">
+                            <label for="predictionModel">Select Model</label>
+                            <select id="predictionModel">
+                                <option value="lstm">LSTM Neural Network</option>
+                                <option value="arima">ARIMA</option>
+                                <option value="prophet">Facebook Prophet</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="predictionHorizon">Prediction Horizon (days)</label>
+                            <input type="number" id="predictionHorizon" min="7" max="90" value="30">
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="enableRetraining" checked>
+                            <label for="enableRetraining">Enable Automatic Model Retraining</label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="retrainingFrequency">Retraining Frequency</label>
+                            <select id="retrainingFrequency">
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="quarterly">Quarterly</option>
+                            </select>
+                        </div>
+                        
+                        <h3>Advanced Settings</h3>
+                        <div class="form-group">
+                            <label for="confidenceThreshold">Minimum Confidence Threshold (%)</label>
+                            <input type="number" id="confidenceThreshold" min="50" max="100" value="80">
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="reset" class="btn btn-outline">Reset</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="tab-content" id="users-tab">
+                    <div class="users-list">
+                        <div class="user-card">
+                            <div class="user-info">
+                                <img src="assets/icons/user.png" alt="User">
+                                <div>
+                                    <h4>Admin User</h4>
+                                    <p>admin@aiventory.com</p>
+                                    <span class="user-role">Administrator</span>
+                                </div>
+                            </div>
+                            <div class="user-actions">
+                                <button class="btn btn-small btn-outline">Edit</button>
+                                <button class="btn btn-small btn-danger">Delete</button>
+                            </div>
+                        </div>
+                        
+                        <button id="addUser" class="btn btn-primary">
+                            <span class="material-icons">add</span>
+                            Add New User
+                        </button>
+                    </div>
+                    
+                    <!-- Add User Modal -->
+                    <div id="userModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close-modal">&times;</span>
+                            <h2>Add New User</h2>
+                            
+                            <form id="userForm">
+                                <div class="form-group">
+                                    <label for="userName">Full Name*</label>
+                                    <input type="text" id="userName" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="userEmail">Email*</label>
+                                    <input type="email" id="userEmail" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="userRole">Role*</label>
+                                    <select id="userRole" required>
+                                        <option value="">Select role</option>
+                                        <option value="admin">Administrator</option>
+                                        <option value="manager">Inventory Manager</option>
+                                        <option value="staff">Staff</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="userPassword">Password*</label>
+                                    <input type="password" id="userPassword" required>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="button" class="btn btn-outline" id="cancelUser">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Save User</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIVENTORY - Suppliers</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <img src="assets/logo.jpg" alt="AIVENTORY Logo" class="logo">
+                <h2>AIVENTORY</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-link">
+                    <span class="material-icons">dashboard</span>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+                <a href="inventory.html" class="nav-link">
+                    <span class="material-icons">inventory</span>
+                    <span class="nav-text">Inventory</span>
+                </a>
+                <a href="suppliers.html" class="active" class="nav-link">
+                    <span class="material-icons">people</span>
+                    <span class="nav-text">Suppliers</span>
+                </a>
+                <a href="scan.html" class="nav-link">
+                    <span class="material-icons">qr_code_scanner</span>
+                    <span class="nav-text">Barcode Scan</span>
+                </a>
+                <a href="reports.html" class="nav-link">
+                    <span class="material-icons">assessment</span>
+                    <span class="nav-text">Reports</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <span class="material-icons">settings</span>
+                    <span class="nav-text">Settings</span>
+                </a>
+            </nav>
+            <a href="index.html" class="logout-btn">
+                <span class="material-icons">logout</span>
+                <span class="nav-text">Log Out</span>
+            </a>
+            <div class="user-profile">
+                <img src="assets/icons/arthur.jpg" alt="User">
+                <div>
+                    <p class="username">Admin User</p>
+                    <p class="user-role">Administrator</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <header class="main-header">
+                <h1>Supplier Management</h1>
+                <div class="header-actions">
+                    <button id="addSupplier" class="btn btn-primary">
+                        <span class="material-icons">add</span>
+                        Add Supplier
+                    </button>
+                </div>
+            </header>
+            
+            <div class="supplier-filters">
+                <div class="search-box">
+                    <span class="material-icons">search</span>
+                    <input type="text" placeholder="Search suppliers...">
+                </div>
+                
+                <select id="supplierCategory">
+                    <option value="all">All Categories</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="office">Office Supplies</option>
+                    <option value="furniture">Furniture</option>
+                </select>
+            </div>
+            
+            <div class="suppliers-table-container">
+                <table id="suppliersTable">
+                    <thead>
+                        <tr>
+                            <th>Supplier Name</th>
+                            <th>Contact</th>
+                            <th>Category</th>
+                            <th>Lead Time</th>
+                            <th>Rating</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Filled by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Supplier Modal (hidden by default) -->
+            <div id="supplierModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h2 id="modalTitle">Add New Supplier</h2>
+                    
+                    <form id="supplierForm">
+                        <div class="form-group">
+                            <label for="supplierName">Supplier Name*</label>
+                            <input type="text" id="supplierName" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactPerson">Contact Person</label>
+                                <input type="text" id="contactPerson">
+                            </div>
+                            <div class="form-group">
+                                <label for="contactEmail">Email*</label>
+                                <input type="email" id="contactEmail" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactPhone">Phone</label>
+                                <input type="tel" id="contactPhone">
+                            </div>
+                            <div class="form-group">
+                                <label for="supplierCategory">Category*</label>
+                                <select id="supplierCategory" required>
+                                    <option value="">Select category</option>
+                                    <option value="electronics">Electronics</option>
+                                    <option value="office">Office Supplies</option>
+                                    <option value="furniture">Furniture</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="leadTime">Average Lead Time (days)*</label>
+                            <input type="number" id="leadTime" min="1" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="supplierRating">Rating</label>
+                            <div class="rating-stars">
+                                <span class="star" data-value="1">★</span>
+                                <span class="star" data-value="2">★</span>
+                                <span class="star" data-value="3">★</span>
+                                <span class="star" data-value="4">★</span>
+                                <span class="star" data-value="5">★</span>
+                                <input type="hidden" id="supplierRating" value="0">
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-outline" id="cancelSupplier">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Supplier</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/suppliers.js"></script>
+</body>
+</html>
