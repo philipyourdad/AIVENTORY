@@ -1,7 +1,7 @@
 // inventory.js - Inventory list functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // In a real app, you would fetch this data from an API
-    const inventoryItems = [
+    // Use shared data from the main script
+    const inventoryItems = window.appData ? window.appData.inventoryItems : [
         { id: 1, name: 'AA Batteries', sku: 'BAT-AA-001', currentStock: 45, threshold: 50, status: 'At Risk' },
         { id: 2, name: 'LED Bulbs', sku: 'LED-60W-002', currentStock: 32, threshold: 30, status: 'Warning' },
         { id: 3, name: 'USB Cables', sku: 'CAB-USB-003', currentStock: 120, threshold: 50, status: 'Good' },
@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (inventoryTable) {
         const tbody = inventoryTable.querySelector('tbody');
+        
+        // Clear existing rows
+        tbody.innerHTML = '';
         
         inventoryItems.forEach(item => {
             const row = document.createElement('tr');
@@ -42,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.view-details').forEach(button => {
             button.addEventListener('click', function() {
                 const itemId = this.getAttribute('data-id');
-                // In a real app, you would navigate to the prediction page with the item ID
+                // Navigate to the prediction page with the item ID
                 window.location.href = `prediction.html?id=${itemId}`;
             });
         });

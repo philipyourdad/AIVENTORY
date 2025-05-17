@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIVENTORY - Detailed Analysis</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar (same as dashboard) -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <img src="assets/logo.jpg" alt="AIVENTORY Logo" class="logo">
+                <h2>AIVENTORY</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-link">
+                    <span class="material-icons">dashboard</span>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+                <a href="inventory.html" class="active" class="nav-link">
+                    <span class="material-icons">inventory</span>
+                    <span class="nav-text">Inventory</span>
+                </a>
+                <a href="suppliers.html" class="nav-link">
+                    <span class="material-icons">people</span>
+                    <span class="nav-text">Suppliers</span>
+                </a>
+                <a href="scan.html" class="nav-link">
+                    <span class="material-icons">qr_code_scanner</span>
+                    <span class="nav-text">Barcode Scan</span>
+                </a>
+                <a href="reports.html" class="nav-link">
+                    <span class="material-icons">assessment</span>
+                    <span class="nav-text">Reports</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <span class="material-icons">settings</span>
+                    <span class="nav-text">Settings</span>
+                </a>
+            </nav>
+            <a href="index.html" class="logout-btn">
+                <span class="material-icons">logout</span>
+                <span class="nav-text">Log Out</span>
+            </a>
+            <div class="user-profile">
+                <img src="assets/icons/arthur.jpg" alt="User">
+                <div>
+                    <p class="username">Admin User</p>
+                    <p class="user-role">Administrator</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <header class="main-header">
+                <h1>Detailed Analysis: AA Batteries (SKU: BAT-AA-001)</h1>
+                <div class="header-actions">
+                    <button class="btn btn-outline" onclick="window.location.href='prediction.html'">
+                        <span class="material-icons">arrow_back</span>
+                        Back to Prediction
+                    </button>
+                </div>
+            </header>
+            
+            <!-- Summary Stats -->
+            <div class="analysis-summary">
+                <div class="summary-card">
+                    <h3>Analysis Summary</h3>
+                    <div class="summary-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">45</span>
+                            <span class="stat-label">Current Stock</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value danger">7</span>
+                            <span class="stat-label">Days Until Empty</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">75</span>
+                            <span class="stat-label">Usage This Month</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">625</span>
+                            <span class="stat-label">Usage This Year</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tab Navigation -->
+            <div class="analysis-tabs">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="daily">Daily Sales</button>
+                    <button class="tab-btn" data-tab="monthly">Monthly Analysis</button>
+                    <button class="tab-btn" data-tab="invoices">Invoice History</button>
+                </div>
+                
+                <!-- Daily Sales Tab -->
+                <div class="tab-content active" id="daily">
+                    <h2>Daily Sales Breakdown</h2>
+                    
+                    <div class="chart-container">
+                        <canvas id="dailySalesChart"></canvas>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Units Sold</th>
+                                    <th>Revenue</th>
+                                    <th>Invoice IDs</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>May 13, 2025</td>
+                                    <td>5</td>
+                                    <td>$12.50</td>
+                                    <td><a href="#">INV-0562</a></td>
+                                    <td><span class="status-badge good">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>May 12, 2025</td>
+                                    <td>8</td>
+                                    <td>$20.00</td>
+                                    <td><a href="#">INV-0555, INV-0557</a></td>
+                                    <td><span class="status-badge good">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>May 11, 2025</td>
+                                    <td>10</td>
+                                    <td>$25.00</td>
+                                    <td><a href="#">INV-0542, INV-0548</a></td>
+                                    <td><span class="status-badge good">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>May 10, 2025</td>
+                                    <td>7</td>
+                                    <td>$17.50</td>
+                                    <td><a href="#">INV-0539</a></td>
+                                    <td><span class="status-badge good">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>May 9, 2025</td>
+                                    <td>12</td>
+                                    <td>$30.00</td>
+                                    <td><a href="#">INV-0533, INV-0536</a></td>
+                                    <td><span class="status-badge good">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>May 8, 2025</td>
+                                    <td>6</td>
+                                    <td>$15.00</td>
+                                    <td><a href="#">INV-0527</a></td>
+                                    <td><span class="status-badge good">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>May 7, 2025</td>
+                                    <td>9</td>
+                                    <td>$22.50</td>
+                                    <td><a href="#">INV-0520, INV-0522</a></td>
+                                    <td><span class="status-badge good">Completed</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Monthly Analysis Tab -->
+                <div class="tab-content" id="monthly">
+                    <h2>Monthly Sales Trends</h2>
+                    
+                    <div class="chart-container">
+                        <canvas id="monthlySalesChart"></canvas>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Units Sold</th>
+                                    <th>Revenue</th>
+                                    <th>Avg. Daily Sales</th>
+                                    <th>Trend</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>May 2025 (MTD)</td>
+                                    <td>57</td>
+                                    <td>$142.50</td>
+                                    <td>8.1</td>
+                                    <td><span class="trend up">+12%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>April 2025</td>
+                                    <td>75</td>
+                                    <td>$187.50</td>
+                                    <td>5.0</td>
+                                    <td><span class="trend up">+8%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>March 2025</td>
+                                    <td>70</td>
+                                    <td>$175.00</td>
+                                    <td>2.3</td>
+                                    <td><span class="trend up">+5%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>February 2025</td>
+                                    <td>60</td>
+                                    <td>$150.00</td>
+                                    <td>2.1</td>
+                                    <td><span class="trend down">-2%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>January 2025</td>
+                                    <td>55</td>
+                                    <td>$137.50</td>
+                                    <td>1.8</td>
+                                    <td><span class="trend down">-8%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>December 2024</td>
+                                    <td>85</td>
+                                    <td>$212.50</td>
+                                    <td>2.7</td>
+                                    <td><span class="trend up">+15%</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Invoice History Tab -->
+                <div class="tab-content" id="invoices">
+                    <h2>Complete Invoice History</h2>
+                    
+                    <div class="search-filter">
+                        <div class="search-box">
+                            <span class="material-icons">search</span>
+                            <input type="text" placeholder="Search invoices...">
+                        </div>
+                        <div class="filter-controls">
+                            <label>Date Range:</label>
+                            <input type="date" placeholder="Start Date">
+                            <input type="date" placeholder="End Date">
+                            <button class="btn btn-primary btn-small">Apply</button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Invoice ID</th>
+                                    <th>Date</th>
+                                    <th>Customer</th>
+                                    <th>Units</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>INV-0562</td>
+                                    <td>May 13, 2025</td>
+                                    <td>Acme Corporation</td>
+                                    <td>5</td>
+                                    <td>$12.50</td>
+                                    <td><span class="status-badge good">Paid</span></td>
+                                    <td><a href="#" class="view-link">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>INV-0557</td>
+                                    <td>May 12, 2025</td>
+                                    <td>TechStart Inc.</td>
+                                    <td>3</td>
+                                    <td>$7.50</td>
+                                    <td><span class="status-badge good">Paid</span></td>
+                                    <td><a href="#" class="view-link">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>INV-0555</td>
+                                    <td>May 12, 2025</td>
+                                    <td>Global Supplies</td>
+                                    <td>5</td>
+                                    <td>$12.50</td>
+                                    <td><span class="status-badge good">Paid</span></td>
+                                    <td><a href="#" class="view-link">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>INV-0548</td>
+                                    <td>May 11, 2025</td>
+                                    <td>Metro Office</td>
+                                    <td>6</td>
+                                    <td>$15.00</td>
+                                    <td><span class="status-badge good">Paid</span></td>
+                                    <td><a href="#" class="view-link">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>INV-0542</td>
+                                    <td>May 11, 2025</td>
+                                    <td>QuickMart</td>
+                                    <td>4</td>
+                                    <td>$10.00</td>
+                                    <td><span class="status-badge good">Paid</span></td>
+                                    <td><a href="#" class="view-link">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>INV-0539</td>
+                                    <td>May 10, 2025</td>
+                                    <td>EasyMart</td>
+                                    <td>7</td>
+                                    <td>$17.50</td>
+                                    <td><span class="status-badge good">Paid</span></td>
+                                    <td><a href="#" class="view-link">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>INV-0536</td>
+                                    <td>May 9, 2025</td>
+                                    <td>City Electronics</td>
+                                    <td>8</td>
+                                    <td>$20.00</td>
+                                    <td><span class="status-badge good">Paid</span></td>
+                                    <td><a href="#" class="view-link">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>INV-0533</td>
+                                    <td>May 9, 2025</td>
+                                    <td>SuperTech</td>
+                                    <td>4</td>
+                                    <td>$10.00</td>
+                                    <td><span class="status-badge good">Paid</span></td>
+                                    <td><a href="#" class="view-link">View</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Switch tabs
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and content
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                button.classList.add('active');
+                document.getElementById(button.dataset.tab).classList.add('active');
+            });
+        });
+        
+        // Daily Sales Chart
+        const dailyCtx = document.getElementById('dailySalesChart');
+        if (dailyCtx) {
+            new Chart(dailyCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['May 7', 'May 8', 'May 9', 'May 10', 'May 11', 'May 12', 'May 13'],
+                    datasets: [{
+                        label: 'Units Sold',
+                        data: [9, 6, 12, 7, 10, 8, 5],
+                        backgroundColor: 'rgba(46, 58, 140, 0.7)',
+                        borderColor: 'rgba(46, 58, 140, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Units Sold'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Monthly Sales Chart
+        const monthlyCtx = document.getElementById('monthlySalesChart');
+        if (monthlyCtx) {
+            new Chart(monthlyCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May (MTD)'],
+                    datasets: [{
+                        label: 'Monthly Sales',
+                        data: [85, 55, 60, 70, 75, 57],
+                        borderColor: 'rgba(46, 58, 140, 1)',
+                        backgroundColor: 'rgba(46, 58, 140, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Units Sold'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Month'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html> 

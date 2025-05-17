@@ -126,7 +126,7 @@
                         <span class="material-icons">shopping_cart</span>
                         Place Reorder
                     </button>
-                    <button class="btn btn-outline">
+                    <button class="btn btn-outline" id="viewAnalysisBtn">
                         <span class="material-icons">insights</span>
                         View Full Analysis
                     </button>
@@ -204,6 +204,16 @@
                     }
                 });
             }
+        });
+
+        // Handle analysis button click
+        document.getElementById('viewAnalysisBtn').addEventListener('click', function() {
+            // Get the item ID from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const itemId = urlParams.get('id') || 1; // Default to first item if no ID
+            
+            // Navigate to analysis page with the same ID
+            window.location.href = `analysis.html?id=${itemId}`;
         });
     </script>
     <script src="js/script.js"></script>
