@@ -78,8 +78,8 @@
                         <h3>Total Items</h3>
                     </div>
                     <div class="card-body">
-                        <p class="card-value">1,245</p>
-                        <p class="card-trend positive">▲ 5% from last month</p>
+                        <p class="card-value">5</p>
+                        <p class="card-trend">Motorcycle parts inventory</p>
                     </div>
                 </div>
                 
@@ -89,8 +89,8 @@
                         <h3>Low-Stock Alerts</h3>
                     </div>
                     <div class="card-body">
-                        <p class="card-value alert">12</p>
-                        <p class="card-trend">Items below threshold</p>
+                        <p class="card-value alert">1</p>
+                        <p class="card-trend">Item below threshold</p>
                     </div>
                 </div>
                 
@@ -100,7 +100,7 @@
                         <h3>Critical Items</h3>
                     </div>
                     <div class="card-body">
-                        <p class="card-value critical">3</p>
+                        <p class="card-value critical">2</p>
                         <p class="card-trend">Urgent reorder needed</p>
                     </div>
                 </div>
@@ -115,8 +115,8 @@
                         <span class="material-icons">notification_important</span>
                     </div>
                     <div class="alert-content">
-                        <h3>Batteries (SKU#123)</h3>
-                        <p>Predicted to run out in 7 days. Suggested reorder: 50 units.</p>
+                        <h3>Motorcycle Batteries (BAT-YTX-001)</h3>
+                        <p>Predicted to run out in 7 days. Current stock: 45, Threshold: 50</p>
                         <p class="alert-confidence">92% prediction confidence</p>
                     </div>
                     <div class="alert-actions">
@@ -130,12 +130,27 @@
                         <span class="material-icons">warning</span>
                     </div>
                     <div class="alert-content">
-                        <h3>LED Bulbs (SKU#456)</h3>
-                        <p>Stock levels declining faster than usual. Monitor closely.</p>
+                        <h3>Engine Oil (10W-40) (OIL-10W40-002)</h3>
+                        <p>Current stock: 32, Threshold: 30. Order placed - expected delivery: May 22, 2025</p>
                         <p class="alert-confidence">85% prediction confidence</p>
                     </div>
                     <div class="alert-actions">
-                        <button class="btn btn-small">Create PO</button>
+                        <button class="btn btn-small">View Order</button>
+                        <button class="btn btn-small btn-outline">View Details</button>
+                    </div>
+                </div>
+                
+                <div class="alert-card urgent">
+                    <div class="alert-icon">
+                        <span class="material-icons">error</span>
+                    </div>
+                    <div class="alert-content">
+                        <h3>Brake Pads (BRK-PAD-004)</h3>
+                        <p>Critical stock level. Current stock: 15, Threshold: 20</p>
+                        <p class="alert-confidence">98% prediction confidence</p>
+                    </div>
+                    <div class="alert-actions">
+                        <button class="btn btn-small">Reorder Now</button>
                         <button class="btn btn-small btn-outline">View Details</button>
                     </div>
                 </div>

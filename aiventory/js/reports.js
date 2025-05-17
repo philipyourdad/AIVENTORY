@@ -3,6 +3,29 @@ document.addEventListener('DOMContentLoaded', function() {
     const timePeriodSelect = document.getElementById('timePeriod');
     const customDateRange = document.getElementById('customDateRange');
     
+    // Get inventory data from central store if available
+    const inventoryItems = window.appData ? window.appData.inventoryItems : [
+        { id: 1, name: 'Motorcycle Batteries', sku: 'BAT-YTX-001', currentStock: 45, threshold: 50, status: 'At Risk' },
+        { id: 2, name: 'Engine Oil (10W-40)', sku: 'OIL-10W40-002', currentStock: 32, threshold: 30, status: 'Warning' },
+        { id: 3, name: 'Drive Chains', sku: 'CHN-520-003', currentStock: 120, threshold: 50, status: 'Good' },
+        { id: 4, name: 'Brake Pads', sku: 'BRK-PAD-004', currentStock: 15, threshold: 20, status: 'At Risk' },
+        { id: 5, name: 'Motorcycle Spark Plugs', sku: 'SPK-NGK-005', currentStock: 65, threshold: 40, status: 'Good' }
+    ];
+    
+    // Calculate totals
+    const totalItems = inventoryItems.length;
+    const atRiskItems = inventoryItems.filter(item => item.status === 'At Risk').length;
+    const warningItems = inventoryItems.filter(item => item.status === 'Warning').length;
+    const healthyItems = inventoryItems.filter(item => item.status === 'Good').length;
+    
+    // Update summary stats
+    const summaryStats = document.querySelectorAll('.stat-value');
+    if (summaryStats.length >= 3) {
+        summaryStats[0].textContent = totalItems;
+        summaryStats[1].textContent = warningItems;
+        summaryStats[2].textContent = atRiskItems;
+    }
+    
     timePeriodSelect.addEventListener('change', function() {
         customDateRange.style.display = this.value === 'custom' ? 'block' : 'none';
     });
@@ -12,14 +35,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const stockoutCtx = document.getElementById('stockoutChart');
     const demandCtx = document.getElementById('demandChart');
 
-    // Inventory Turnover Chart
+    // Inventory Turnover Chart - based on our motorcycle parts
     const turnoverChart = new Chart(turnoverCtx, {
         type: 'bar',
         data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
             datasets: [{
                 label: 'Inventory Turnover Ratio',
-                data: [2.1, 2.3, 2.5, 2.8, 3.1, 3.0, 2.9, 3.2, 3.5, 3.3, 3.0, 3.2],
+                data: [2.5, 2.7, 3.0, 3.2, 3.5],
                 backgroundColor: '#2E3A8C',
                 borderColor: '#2E3A8C',
                 borderWidth: 1
@@ -40,17 +63,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Stockout Predictions Chart
+    // Stockout Predictions Chart - reflect actual inventory status
     const stockoutChart = new Chart(stockoutCtx, {
         type: 'doughnut',
         data: {
             labels: ['Critical Items', 'Warning Items', 'Healthy Items'],
             datasets: [{
-                data: [8, 15, 77],
+                data: [atRiskItems, warningItems, healthyItems],
                 backgroundColor: [
-                    '#FF6B6B',
-                    '#FFD166',
-                    '#06D6A0'
+                    '#FF6B6B', // Red for critical
+                    '#FFD166', // Yellow for warning
+                    '#06D6A0'  // Green for healthy
                 ],
                 borderWidth: 1
             }]
@@ -61,28 +84,54 @@ document.addEventListener('DOMContentLoaded', function() {
             plugins: {
                 legend: {
                     position: 'bottom'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const value = context.raw;
+                            const total = context.dataset.data.reduce((acc, val) => acc + val, 0);
+                            const percentage = Math.round((value / total) * 100);
+                            return `${context.label}: ${value} (${percentage}%)`;
+                        }
+                    }
                 }
             }
         }
     });
 
-    // Monthly Demand Forecast Chart
+    // Monthly Demand Forecast Chart - motorcycle parts tailored
     const demandChart = new Chart(demandCtx, {
         type: 'line',
         data: {
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             datasets: [
                 {
-                    label: 'Historical Demand',
-                    data: [1200, 1150, 1250, 1300, 1400, 1350, 1450, 1500, 1400, 1300, 1250, 1200],
-                    borderColor: '#2E3A8C',
+                    label: 'Motorcycle Batteries',
+                    data: [42, 40, 45, 55, 65, 75, 80, 75, 65, 55, 45, 40],
+                    borderColor: '#FF6B6B',
+                    backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                },
+                {
+                    label: 'Engine Oil',
+                    data: [80, 75, 85, 90, 100, 110, 115, 120, 110, 100, 90, 85],
+                    borderColor: '#2E3A8C', 
                     backgroundColor: 'rgba(46, 58, 140, 0.1)',
                     tension: 0.4,
                     fill: true
                 },
                 {
-                    label: 'AI Forecast',
-                    data: [null, null, null, null, null, null, null, null, 1400, 1350, 1300, 1400, 1500, 1600],
+                    label: 'Brake Pads',
+                    data: [25, 22, 24, 28, 32, 35, 38, 36, 34, 30, 28, 26],
+                    borderColor: '#06D6A0',
+                    backgroundColor: 'rgba(6, 214, 160, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                },
+                {
+                    label: 'AI Forecast (Next Quarter)',
+                    data: [null, null, null, null, null, null, null, null, null, 68, 72, 78],
                     borderColor: '#00B4D8',
                     backgroundColor: 'rgba(0, 180, 216, 0.1)',
                     borderDash: [5, 5],
@@ -130,9 +179,39 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Example of how you might update charts
         if (reportType === 'inventory') {
-            turnoverChart.data.datasets[0].data = [2.5, 2.7, 2.9, 3.1, 3.3, 3.2];
+            // Show different time periods based on selection
+            if (timePeriod === '7days') {
+                turnoverChart.data.labels = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'];
+                turnoverChart.data.datasets[0].data = [3.1, 3.2, 3.0, 3.3, 3.4, 3.5, 3.6];
+            } else if (timePeriod === '30days') {
+                turnoverChart.data.labels = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+                turnoverChart.data.datasets[0].data = [3.0, 3.2, 3.4, 3.5];
+            } else {
+                turnoverChart.data.labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May'];
+                turnoverChart.data.datasets[0].data = [2.5, 2.7, 3.0, 3.2, 3.5];
+            }
             turnoverChart.update();
+            
+            // Update demand forecast based on time period
+            updateDemandChart(timePeriod);
         }
+    }
+    
+    function updateDemandChart(timePeriod) {
+        // Different data for different time periods
+        if (timePeriod === '7days') {
+            demandChart.data.labels = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'];
+            demandChart.data.datasets[0].data = [8, 7, 9, 10, 12, 9, 7];
+            demandChart.data.datasets[1].data = [15, 14, 16, 18, 20, 17, 15];
+            demandChart.data.datasets[2].data = [5, 4, 6, 7, 8, 6, 5];
+        } else {
+            // Default to monthly view
+            demandChart.data.labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            demandChart.data.datasets[0].data = [42, 40, 45, 55, 65, 75, 80, 75, 65, 55, 45, 40];
+            demandChart.data.datasets[1].data = [80, 75, 85, 90, 100, 110, 115, 120, 110, 100, 90, 85];
+            demandChart.data.datasets[2].data = [25, 22, 24, 28, 32, 35, 38, 36, 34, 30, 28, 26];
+        }
+        demandChart.update();
     }
 
     // Generate PDF Report
@@ -157,13 +236,17 @@ document.addEventListener('DOMContentLoaded', function() {
         
         switch(reportType) {
             case 'inventory':
-                csvRows.push("Month,Turnover Ratio");
-                csvRows.push("Jan,2.1");
-                csvRows.push("Feb,2.3");
-                // Add more data...
+                csvRows.push("Product,Current Stock,Threshold,Status");
+                inventoryItems.forEach(item => {
+                    csvRows.push(`${item.name},${item.currentStock},${item.threshold},${item.status}`);
+                });
                 break;
             case 'sales':
-                // Different data structure
+                csvRows.push("Month,Motorcycle Batteries,Engine Oil,Brake Pads");
+                csvRows.push("Jan,42,80,25");
+                csvRows.push("Feb,40,75,22");
+                csvRows.push("Mar,45,85,24");
+                // Add more data...
                 break;
         }
         

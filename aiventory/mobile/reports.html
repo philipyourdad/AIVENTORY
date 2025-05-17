@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2E3A8C">
+    <title>AIVENTORY Mobile - Reports</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <div class="app-header">
+            <button class="menu-button">
+                <span class="material-icons">menu</span>
+            </button>
+            <div class="header-title">Reports</div>
+            <button class="menu-button">
+                <span class="material-icons">share</span>
+            </button>
+        </div>
+        
+        <div class="content-area">
+            <!-- Time Period Selector -->
+            <div class="card">
+                <div class="card-header">Time Period</div>
+                
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <button class="action-btn primary-btn" style="flex: 1;">Week</button>
+                    <button class="action-btn secondary-btn" style="flex: 1;">Month</button>
+                    <button class="action-btn secondary-btn" style="flex: 1;">Quarter</button>
+                </div>
+            </div>
+            
+            <!-- Inventory Status -->
+            <div class="card">
+                <div class="card-header">Inventory Status</div>
+                
+                <div class="chart-container">
+                    <canvas id="statusChart"></canvas>
+                </div>
+                
+                <div style="display: flex; justify-content: space-around; margin-top: 10px; text-align: center;">
+                    <div>
+                        <div style="font-size: 1.2rem; font-weight: 600; color: var(--primary);">5</div>
+                        <div style="font-size: 0.8rem; color: var(--gray);">Total Items</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.2rem; font-weight: 600; color: var(--warning);">1</div>
+                        <div style="font-size: 0.8rem; color: var(--gray);">Warning</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.2rem; font-weight: 600; color: var(--danger);">2</div>
+                        <div style="font-size: 0.8rem; color: var(--gray);">Critical</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Turnover Rate -->
+            <div class="card">
+                <div class="card-header">Inventory Turnover Rate</div>
+                
+                <div class="chart-container">
+                    <canvas id="turnoverChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Monthly Demand -->
+            <div class="card">
+                <div class="card-header">Monthly Demand Forecast</div>
+                
+                <div class="chart-container">
+                    <canvas id="demandChart"></canvas>
+                </div>
+                
+                <div class="item-selector" style="margin-top: 10px;">
+                    <select id="productSelector" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 5px;">
+                        <option value="1">Motorcycle Batteries</option>
+                        <option value="2">Engine Oil (10W-40)</option>
+                        <option value="3">Drive Chains</option>
+                        <option value="4">Brake Pads</option>
+                        <option value="5">Motorcycle Spark Plugs</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Export Options -->
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <button class="action-btn secondary-btn" style="flex: 1;">
+                    <span class="material-icons md-18">picture_as_pdf</span>
+                    Export PDF
+                </button>
+                <button class="action-btn secondary-btn" style="flex: 1;">
+                    <span class="material-icons md-18">table_chart</span>
+                    Export CSV
+                </button>
+            </div>
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="dashboard.html" class="nav-item">
+                <span class="material-icons nav-icon">dashboard</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="inventory.html" class="nav-item">
+                <span class="material-icons nav-icon">inventory</span>
+                <span>Inventory</span>
+            </a>
+            <a href="reports.html" class="nav-item active">
+                <span class="material-icons nav-icon">assessment</span>
+                <span>Reports</span>
+            </a>
+            <a href="settings.html" class="nav-item">
+                <span class="material-icons nav-icon">settings</span>
+                <span>Settings</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Status Doughnut Chart
+            const statusCtx = document.getElementById('statusChart');
+            if (statusCtx) {
+                new Chart(statusCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Good', 'Warning', 'Critical'],
+                        datasets: [{
+                            data: [2, 1, 2],
+                            backgroundColor: [
+                                '#06D6A0',  // Green for good
+                                '#FFD166',  // Yellow for warning
+                                '#FF6B6B'   // Red for critical
+                            ],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '70%',
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    boxWidth: 12,
+                                    padding: 15
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Turnover Chart
+            const turnoverCtx = document.getElementById('turnoverChart');
+            if (turnoverCtx) {
+                new Chart(turnoverCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                        datasets: [{
+                            label: 'Turnover Ratio',
+                            data: [2.5, 2.7, 3.0, 3.2, 3.5],
+                            backgroundColor: '#2E3A8C'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    display: false
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Demand Chart
+            const demandCtx = document.getElementById('demandChart');
+            
+            // Data for each product
+            const productData = {
+                1: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    data: [42, 40, 45, 55, 65, 75]
+                },
+                2: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    data: [80, 75, 85, 90, 100, 110]
+                },
+                3: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    data: [35, 30, 40, 45, 50, 55]
+                },
+                4: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    data: [25, 22, 24, 28, 32, 35]
+                },
+                5: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    data: [60, 55, 65, 70, 75, 80]
+                }
+            };
+            
+            let demandChart;
+            
+            if (demandCtx) {
+                demandChart = new Chart(demandCtx, {
+                    type: 'line',
+                    data: {
+                        labels: productData[1].labels,
+                        datasets: [{
+                            label: 'Demand',
+                            data: productData[1].data,
+                            borderColor: '#FF6B6B',
+                            backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    display: false
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Change product data when selector changes
+            const productSelector = document.getElementById('productSelector');
+            if (productSelector) {
+                productSelector.addEventListener('change', function() {
+                    const productId = parseInt(this.value);
+                    if (demandChart && productData[productId]) {
+                        demandChart.data.labels = productData[productId].labels;
+                        demandChart.data.datasets[0].data = productData[productId].data;
+                        demandChart.update();
+                    }
+                });
+            }
+            
+            // Time period buttons
+            const timeButtons = document.querySelectorAll('.card:first-of-type .action-btn');
+            timeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    timeButtons.forEach(btn => btn.classList.remove('primary-btn'));
+                    timeButtons.forEach(btn => btn.classList.add('secondary-btn'));
+                    this.classList.remove('secondary-btn');
+                    this.classList.add('primary-btn');
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

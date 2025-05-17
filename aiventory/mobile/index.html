@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2E3A8C">
+    <title>AIVENTORY Mobile</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <div class="app-header">
+            <div class="header-title">AIVENTORY</div>
+        </div>
+        
+        <div class="content-area">
+            <div class="login-form">
+                <img src="../assets/logo.jpg" alt="AIVENTORY Logo" class="login-logo">
+                <h2 class="app-title">AIVENTORY Mobile</h2>
+                
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter your username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password">
+                </div>
+                
+                <button class="submit-button" id="loginBtn">Log In</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            // In a real app, we would validate credentials
+            window.location.href = 'dashboard.html';
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2E3A8C">
+    <title>AIVENTORY Mobile - Settings</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .settings-section {
+            margin-bottom: 20px;
+        }
+        
+        .settings-header {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 8px;
+            padding-left: 5px;
+            font-weight: 500;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: var(--primary);
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(20px);
+        }
+        
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: white;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+        
+        .setting-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        
+        .setting-label {
+            font-size: 0.9rem;
+        }
+        
+        .setting-value {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .user-profile-section {
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: block;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .profile-name {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .profile-role {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+        
+        .app-version {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="app-header">
+            <div class="header-title">Settings</div>
+        </div>
+        
+        <div class="content-area">
+            <!-- User Profile Section -->
+            <div class="user-profile-section">
+                <div class="profile-avatar">
+                    <span class="material-icons" style="font-size: 40px; color: var(--gray);">account_circle</span>
+                </div>
+                <h2 class="profile-name">Admin User</h2>
+                <p class="profile-role">Administrator</p>
+                <button class="action-btn secondary-btn">
+                    <span class="material-icons md-18">edit</span>
+                    Edit Profile
+                </button>
+            </div>
+            
+            <!-- App Settings -->
+            <div class="settings-section">
+                <h3 class="settings-header">APP SETTINGS</h3>
+                
+                <div class="setting-card">
+                    <div class="setting-item">
+                        <span class="setting-label">Notifications</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <span class="setting-label">Low Stock Alerts</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <span class="setting-label">Dark Mode</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <span class="setting-label">Sync Frequency</span>
+                        <span class="setting-value">Every 30 minutes</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scanner Settings -->
+            <div class="settings-section">
+                <h3 class="settings-header">SCANNER SETTINGS</h3>
+                
+                <div class="setting-card">
+                    <div class="setting-item">
+                        <span class="setting-label">Auto-flash</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <span class="setting-label">Vibrate on Scan</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <span class="setting-label">Beep on Scan</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Analytics Settings -->
+            <div class="settings-section">
+                <h3 class="settings-header">ANALYTICS</h3>
+                
+                <div class="setting-card">
+                    <div class="setting-item">
+                        <span class="setting-label">Usage Statistics</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <span class="setting-label">AI Predictions</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Account Settings -->
+            <div class="settings-section">
+                <h3 class="settings-header">ACCOUNT</h3>
+                
+                <div class="setting-card">
+                    <div class="setting-item">
+                        <span class="setting-label">Change Password</span>
+                        <span class="material-icons" style="color: var(--gray);">arrow_forward_ios</span>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <span class="setting-label">Privacy Settings</span>
+                        <span class="material-icons" style="color: var(--gray);">arrow_forward_ios</span>
+                    </div>
+                    
+                    <div class="setting-item" style="color: var(--danger);">
+                        <span class="setting-label">Log Out</span>
+                        <span class="material-icons" style="color: var(--danger);">exit_to_app</span>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="app-version">AIVENTORY Mobile v1.0.3</p>
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="dashboard.html" class="nav-item">
+                <span class="material-icons nav-icon">dashboard</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="inventory.html" class="nav-item">
+                <span class="material-icons nav-icon">inventory</span>
+                <span>Inventory</span>
+            </a>
+            <a href="reports.html" class="nav-item">
+                <span class="material-icons nav-icon">assessment</span>
+                <span>Reports</span>
+            </a>
+            <a href="settings.html" class="nav-item active">
+                <span class="material-icons nav-icon">settings</span>
+                <span>Settings</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle switches
+            const toggleSwitches = document.querySelectorAll('.toggle-switch input');
+            toggleSwitches.forEach(toggle => {
+                toggle.addEventListener('change', function() {
+                    // In a real app, we would save the setting
+                    console.log(`Setting changed: ${this.checked ? 'ON' : 'OFF'}`);
+                });
+            });
+            
+            // Logout functionality
+            const logoutItem = document.querySelector('.setting-item[style*="danger"]');
+            if (logoutItem) {
+                logoutItem.addEventListener('click', function() {
+                    if (confirm('Are you sure you want to log out?')) {
+                        window.location.href = 'index.html';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html> 
