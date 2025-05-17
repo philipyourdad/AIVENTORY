@@ -2,11 +2,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Use shared data from the main script
     const inventoryItems = window.appData ? window.appData.inventoryItems : [
-        { id: 1, name: 'AA Batteries', sku: 'BAT-AA-001', currentStock: 45, threshold: 50, status: 'At Risk' },
-        { id: 2, name: 'LED Bulbs', sku: 'LED-60W-002', currentStock: 32, threshold: 30, status: 'Warning' },
-        { id: 3, name: 'USB Cables', sku: 'CAB-USB-003', currentStock: 120, threshold: 50, status: 'Good' },
-        { id: 4, name: 'Wireless Mouse', sku: 'MOU-WL-004', currentStock: 15, threshold: 20, status: 'At Risk' },
-        { id: 5, name: 'HDMI Cables', sku: 'CAB-HDMI-005', currentStock: 65, threshold: 40, status: 'Good' }
+        { id: 1, name: 'Motorcycle Batteries', sku: 'BAT-YTX-001', currentStock: 45, threshold: 50, status: 'At Risk' },
+        { id: 2, name: 'Engine Oil (10W-40)', sku: 'OIL-10W40-002', currentStock: 32, threshold: 30, status: 'Warning' },
+        { id: 3, name: 'Drive Chains', sku: 'CHN-520-003', currentStock: 120, threshold: 50, status: 'Good' },
+        { id: 4, name: 'Brake Pads', sku: 'BRK-PAD-004', currentStock: 15, threshold: 20, status: 'At Risk' },
+        { id: 5, name: 'Motorcycle Spark Plugs', sku: 'SPK-NGK-005', currentStock: 65, threshold: 40, status: 'Good' }
     ];
     
     const inventoryTable = document.getElementById('inventoryTable');
