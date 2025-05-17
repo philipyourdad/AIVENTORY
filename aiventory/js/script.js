@@ -16,13 +16,58 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Create account form role toggle
+    const newAdminBtn = document.getElementById('new-admin-btn');
+    const newStaffBtn = document.getElementById('new-staff-btn');
+    
+    if (newAdminBtn && newStaffBtn) {
+        newAdminBtn.addEventListener('click', function() {
+            this.classList.add('active');
+            newStaffBtn.classList.remove('active');
+        });
+        
+        newStaffBtn.addEventListener('click', function() {
+            this.classList.add('active');
+            newAdminBtn.classList.remove('active');
+        });
+    }
+    
+    // Toggle between login and create account forms
+    const createAccountLink = document.getElementById('createAccountLink');
+    const backToLoginLink = document.getElementById('backToLoginLink');
+    const loginForm = document.getElementById('loginForm');
+    const createAccountForm = document.getElementById('createAccountForm');
+    
+    if (createAccountLink && backToLoginLink) {
+        createAccountLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            loginForm.style.display = 'none';
+            createAccountForm.style.display = 'block';
+        });
+        
+        backToLoginLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            createAccountForm.style.display = 'none';
+            loginForm.style.display = 'block';
+        });
+    }
+    
     // Form submission
-    const loginForm = document.querySelector('.login-form');
     if (loginForm) {
         loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
             // In a real app, you would authenticate here
             window.location.href = 'dashboard.html';
+        });
+    }
+    
+    if (createAccountForm) {
+        createAccountForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // In a real app, you would validate and create the account
+            alert('Account created successfully! Please log in.');
+            createAccountForm.style.display = 'none';
+            loginForm.style.display = 'block';
         });
     }
 });

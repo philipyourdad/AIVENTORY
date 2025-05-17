@@ -16,7 +16,7 @@
         </div>
         
         <div class="content-area">
-            <div class="login-form">
+            <div class="login-form" id="loginForm">
                 <img src="../assets/logo.jpg" alt="AIVENTORY Logo" class="login-logo">
                 <h2 class="app-title">AIVENTORY Mobile</h2>
                 
@@ -31,14 +31,72 @@
                 </div>
                 
                 <button class="submit-button" id="loginBtn">Log In</button>
+                
+                <div class="account-link">
+                    <p>Don't have an account? <a href="#" id="showCreateAccount">Create Account</a></p>
+                </div>
+            </div>
+            
+            <!-- Create Account Form (Hidden by default) -->
+            <div class="login-form" id="createAccountForm" style="display: none;">
+                <img src="../assets/logo.jpg" alt="AIVENTORY Logo" class="login-logo">
+                <h2 class="app-title">Create Account</h2>
+                
+                <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname" placeholder="Enter your full name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="newPassword">Password</label>
+                    <input type="password" id="newPassword" placeholder="Create a password">
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" placeholder="Confirm your password">
+                </div>
+                
+                <button class="submit-button" id="createAccountBtn">Create Account</button>
+                
+                <div class="account-link">
+                    <p>Already have an account? <a href="#" id="showLogin">Log In</a></p>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
+        // Login functionality
         document.getElementById('loginBtn').addEventListener('click', function() {
             // In a real app, we would validate credentials
             window.location.href = 'dashboard.html';
+        });
+        
+        // Toggle between login and create account forms
+        document.getElementById('showCreateAccount').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('createAccountForm').style.display = 'block';
+        });
+        
+        document.getElementById('showLogin').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('createAccountForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+        });
+        
+        // Create account functionality
+        document.getElementById('createAccountBtn').addEventListener('click', function() {
+            // In a real app, we would validate and create the account
+            alert('Account created successfully! Please log in.');
+            document.getElementById('createAccountForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
         });
     </script>
 </body>

@@ -111,6 +111,27 @@ body {
     background: #1E2A78;
 }
 
+/* Account Options */
+.account-options {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.account-options p {
+    font-size: 0.9rem;
+    color: var(--gray);
+}
+
+.account-options a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.account-options a:hover {
+    text-decoration: underline;
+}
+
 /* Dashboard.css - Specific to dashboard */
 .dashboard {
     display: flex;

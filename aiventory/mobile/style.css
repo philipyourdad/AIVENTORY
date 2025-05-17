@@ -314,18 +314,36 @@ html, body {
 .submit-button {
     width: 100%;
     padding: 12px;
-    background: var(--primary);
+    background-color: var(--primary);
     color: white;
     border: none;
     border-radius: 5px;
     font-weight: 500;
-    margin-top: 10px;
+    margin-top: 20px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.account-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.account-link p {
+    font-size: 0.9rem;
+    color: var(--gray);
+}
+
+.account-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
 }
 
 /* Charts */
 .chart-container {
     height: 200px;
-    margin-top: 10px;
+    margin: 10px 0;
     position: relative;
 }
 
