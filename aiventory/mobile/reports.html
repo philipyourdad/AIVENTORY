@@ -8,6 +8,279 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --card-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            --hover-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            --transition-speed: 0.2s;
+            --bar-bg: #f0f0f0;
+            --bar-fill: #ff9800;
+            --percent-badge: #6c63ff;
+        }
+        
+        .content-area {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: #f8f9fa;
+            min-height: calc(100vh - 60px);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--card-shadow);
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .card-header {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .card-header .material-icons {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .time-period-selector {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            background: #f8f9fa;
+            padding: 4px;
+            border-radius: 12px;
+        }
+        
+        .time-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: transparent;
+            color: var(--gray);
+            font-weight: 500;
+            transition: all var(--transition-speed) ease;
+            cursor: pointer;
+        }
+        
+        .time-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 2px 4px rgba(46, 58, 140, 0.2);
+        }
+        
+        .ranking-list {
+            margin-top: 10px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .ranking-bar-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+        }
+        
+        .product-label {
+            flex: 0 0 120px;
+            font-weight: 500;
+            color: var(--dark);
+            font-size: 0.98rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .bar-container {
+            flex: 1;
+            background: var(--bar-bg);
+            border-radius: 8px;
+            height: 18px;
+            position: relative;
+            margin-right: 10px;
+        }
+        
+        .bar-fill {
+            background: var(--bar-fill);
+            height: 100%;
+            border-radius: 8px;
+            transition: width 0.6s cubic-bezier(.4,2,.6,1);
+        }
+        
+        .bar-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 90px;
+            justify-content: flex-end;
+        }
+        
+        .units-badge {
+            font-weight: 600;
+            color: var(--primary);
+            background: rgba(46, 58, 140, 0.08);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+        }
+        
+        .percent-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--percent-badge);
+            color: #fff;
+            font-weight: 600;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            font-size: 0.95rem;
+            margin-left: 2px;
+        }
+        
+        .chart-container {
+            height: 220px;
+            margin: 15px 0;
+            position: relative;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+        
+        .stat-item {
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform var(--transition-speed) ease;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-2px);
+        }
+        
+        .stat-value {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .export-options {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .export-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 500;
+            background: white;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            transition: all var(--transition-speed) ease;
+            cursor: pointer;
+        }
+        
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .export-btn.primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+        
+        .product-selector {
+            margin-top: 15px;
+        }
+        
+        .product-selector select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            background: white;
+            font-size: 0.9rem;
+            color: var(--dark);
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            padding-right: 40px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+        }
+        
+        .product-selector select:hover {
+            border-color: var(--primary);
+        }
+        
+        .product-selector select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(46, 58, 140, 0.1);
+        }
+        
+        /* Loading animation */
+        .loading {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+    </style>
 </head>
 <body>
     <div class="app-container">
@@ -24,43 +297,59 @@
         <div class="content-area">
             <!-- Time Period Selector -->
             <div class="card">
-                <div class="card-header">Time Period</div>
-                
-                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                    <button class="action-btn primary-btn" style="flex: 1;">Week</button>
-                    <button class="action-btn secondary-btn" style="flex: 1;">Month</button>
-                    <button class="action-btn secondary-btn" style="flex: 1;">Quarter</button>
+                <div class="card-header">
+                    <span>Time Period</span>
+                    <span class="material-icons">schedule</span>
+                </div>
+                <div class="time-period-selector">
+                    <button class="time-btn active">Week</button>
+                    <button class="time-btn">Month</button>
+                    <button class="time-btn">Quarter</button>
+                </div>
+            </div>
+            
+            <!-- Most Bought Products -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Most Bought Products</span>
+                    <span class="material-icons">trending_up</span>
+                </div>
+                <div class="ranking-list" id="rankingBarList">
+                    <!-- JS will render bars here -->
                 </div>
             </div>
             
             <!-- Inventory Status -->
             <div class="card">
-                <div class="card-header">Inventory Status</div>
-                
+                <div class="card-header">
+                    <span>Inventory Status</span>
+                    <span class="material-icons">inventory</span>
+                </div>
                 <div class="chart-container">
                     <canvas id="statusChart"></canvas>
                 </div>
-                
-                <div style="display: flex; justify-content: space-around; margin-top: 10px; text-align: center;">
-                    <div>
-                        <div style="font-size: 1.2rem; font-weight: 600; color: var(--primary);">5</div>
-                        <div style="font-size: 0.8rem; color: var(--gray);">Total Items</div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" style="color: var(--primary);">5</div>
+                        <div class="stat-label">Total Items</div>
                     </div>
-                    <div>
-                        <div style="font-size: 1.2rem; font-weight: 600; color: var(--warning);">1</div>
-                        <div style="font-size: 0.8rem; color: var(--gray);">Warning</div>
+                    <div class="stat-item">
+                        <div class="stat-value" style="color: var(--warning);">1</div>
+                        <div class="stat-label">Warning</div>
                     </div>
-                    <div>
-                        <div style="font-size: 1.2rem; font-weight: 600; color: var(--danger);">2</div>
-                        <div style="font-size: 0.8rem; color: var(--gray);">Critical</div>
+                    <div class="stat-item">
+                        <div class="stat-value" style="color: var(--danger);">2</div>
+                        <div class="stat-label">Critical</div>
                     </div>
                 </div>
             </div>
             
             <!-- Turnover Rate -->
             <div class="card">
-                <div class="card-header">Inventory Turnover Rate</div>
-                
+                <div class="card-header">
+                    <span>Inventory Turnover Rate</span>
+                    <span class="material-icons">sync</span>
+                </div>
                 <div class="chart-container">
                     <canvas id="turnoverChart"></canvas>
                 </div>
@@ -68,14 +357,15 @@
             
             <!-- Monthly Demand -->
             <div class="card">
-                <div class="card-header">Monthly Demand Forecast</div>
-                
+                <div class="card-header">
+                    <span>Monthly Demand Forecast</span>
+                    <span class="material-icons">show_chart</span>
+                </div>
                 <div class="chart-container">
                     <canvas id="demandChart"></canvas>
                 </div>
-                
-                <div class="item-selector" style="margin-top: 10px;">
-                    <select id="productSelector" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 5px;">
+                <div class="product-selector">
+                    <select id="productSelector">
                         <option value="1">Motorcycle Batteries</option>
                         <option value="2">Engine Oil (10W-40)</option>
                         <option value="3">Drive Chains</option>
@@ -86,13 +376,13 @@
             </div>
             
             <!-- Export Options -->
-            <div style="display: flex; gap: 10px; margin-top: 15px;">
-                <button class="action-btn secondary-btn" style="flex: 1;">
-                    <span class="material-icons md-18">picture_as_pdf</span>
+            <div class="export-options">
+                <button class="export-btn primary">
+                    <span class="material-icons">picture_as_pdf</span>
                     Export PDF
                 </button>
-                <button class="action-btn secondary-btn" style="flex: 1;">
-                    <span class="material-icons md-18">table_chart</span>
+                <button class="export-btn">
+                    <span class="material-icons">table_chart</span>
                     Export CSV
                 </button>
             </div>
@@ -122,6 +412,71 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Sample purchase data for different time periods
+            const purchaseData = {
+                'week': [
+                    { id: 2, name: 'Engine Oil (10W-40)', count: 45, percent: 12 },
+                    { id: 1, name: 'Motorcycle Batteries', count: 32, percent: 8 },
+                    { id: 5, name: 'Motorcycle Spark Plugs', count: 28, percent: 6 },
+                    { id: 4, name: 'Brake Pads', count: 20, percent: 4 },
+                    { id: 3, name: 'Drive Chains', count: 15, percent: 3 }
+                ],
+                'month': [
+                    { id: 2, name: 'Engine Oil (10W-40)', count: 156, percent: 44 },
+                    { id: 1, name: 'Motorcycle Batteries', count: 98, percent: 31 },
+                    { id: 5, name: 'Motorcycle Spark Plugs', count: 87, percent: 29 },
+                    { id: 4, name: 'Brake Pads', count: 65, percent: 22 },
+                    { id: 3, name: 'Drive Chains', count: 42, percent: 19 }
+                ],
+                'quarter': [
+                    { id: 2, name: 'Engine Oil (10W-40)', count: 432, percent: 43 },
+                    { id: 1, name: 'Motorcycle Batteries', count: 287, percent: 31 },
+                    { id: 5, name: 'Motorcycle Spark Plugs', count: 256, percent: 36 },
+                    { id: 4, name: 'Brake Pads', count: 198, percent: 22 },
+                    { id: 3, name: 'Drive Chains', count: 145, percent: 17 }
+                ]
+            };
+            
+            // Function to update the ranking bar list
+            function updateRankingBarList(timePeriod) {
+                const rankingBarList = document.getElementById('rankingBarList');
+                if (!rankingBarList) return;
+                rankingBarList.innerHTML = '';
+                const data = purchaseData[timePeriod] || purchaseData['month'];
+                const maxCount = Math.max(...data.map(item => item.count));
+                data.forEach((item, idx) => {
+                    const barItem = document.createElement('div');
+                    barItem.className = 'ranking-bar-item';
+                    barItem.innerHTML = `
+                        <div class="product-label">${item.name}</div>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: ${Math.round((item.count / maxCount) * 100)}%"></div>
+                        </div>
+                        <div class="bar-info">
+                            <span class="units-badge">${item.count}u</span>
+                            <span class="percent-badge">+${item.percent}%</span>
+                        </div>
+                    `;
+                    rankingBarList.appendChild(barItem);
+                });
+            }
+            
+            // Time period buttons
+            const timeButtons = document.querySelectorAll('.time-btn');
+            timeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    timeButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update ranking bar list based on selected time period
+                    const timePeriod = this.textContent.toLowerCase();
+                    updateRankingBarList(timePeriod);
+                });
+            });
+            
+            // Initialize ranking bar list with default time period (month)
+            updateRankingBarList('month');
+            
             // Status Doughnut Chart
             const statusCtx = document.getElementById('statusChart');
             if (statusCtx) {
@@ -274,17 +629,6 @@
                     }
                 });
             }
-            
-            // Time period buttons
-            const timeButtons = document.querySelectorAll('.card:first-of-type .action-btn');
-            timeButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    timeButtons.forEach(btn => btn.classList.remove('primary-btn'));
-                    timeButtons.forEach(btn => btn.classList.add('secondary-btn'));
-                    this.classList.remove('secondary-btn');
-                    this.classList.add('primary-btn');
-                });
-            });
         });
     </script>
 </body>

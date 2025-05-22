@@ -8,6 +8,152 @@
     <link rel="stylesheet" href="css/dashboard.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .status-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.98rem;
+            color: #fff;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+        .status-good {
+            background: #06D6A0;
+        }
+        .status-warning {
+            background: #FFD166;
+            color: #222;
+        }
+        .status-risk {
+            background: #FF6B6B;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(44,62,80,0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: #fff;
+            border-radius: 22px;
+            box-shadow: 0 8px 32px rgba(44,62,80,0.18);
+            padding: 38px 32px 28px 32px;
+            min-width: 340px;
+            max-width: 95vw;
+            width: 50%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            animation: modalPopIn 0.22s cubic-bezier(.4,2,.6,1);
+        }
+        @keyframes modalPopIn {
+            0% { opacity: 0; transform: scale(0.96) translateY(30px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .modal-content h2 {
+            margin-top: 0;
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #2E3A8C;
+            margin-bottom: 22px;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+        .modal-close {
+            position: absolute;
+            top: 18px;
+            right: 22px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #888;
+            cursor: pointer;
+            transition: color 0.18s;
+            z-index: 2;
+            line-height: 1;
+        }
+        .modal-close:hover {
+            color: #2E3A8C;
+        }
+        .form-group {
+            margin-bottom: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .form-group label {
+            font-weight: 600;
+            color: #222;
+            font-size: 1rem;
+            margin-bottom: 2px;
+        }
+        .form-group input, .form-group select {
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1.5px solid #e0e0e0;
+            font-size: 1.04rem;
+            background: #f8f9fa;
+            color: #222;
+            outline: none;
+            transition: border-color 0.18s, box-shadow 0.18s;
+            box-shadow: 0 1px 2px rgba(44,62,80,0.03);
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: #6c63ff;
+            box-shadow: 0 0 0 2px rgba(108,99,255,0.10);
+        }
+        .modal-actions {
+            display: flex;
+            gap: 14px;
+            margin-top: 12px;
+            justify-content: flex-end;
+        }
+        .success-toast {
+            position: fixed;
+            top: 32px;
+            right: 32px;
+            background: #06D6A0;
+            color: #fff;
+            font-weight: 700;
+            padding: 14px 28px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(44,62,80,0.10);
+            z-index: 2000;
+            font-size: 1.08rem;
+            animation: fadeInOut 2.5s;
+        }
+        #barcodeToast { background: #2E3A8C; }
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(-20px); }
+            10% { opacity: 1; transform: translateY(0); }
+            90% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+        .btn.btn-secondary {
+            background: #f4f6fa;
+            color: #2E3A8C;
+            border: 1.5px solid #e0e0e0;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 8px 16px;
+            margin-right: 8px;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn.btn-secondary:hover {
+            background: #e0e7ff;
+            color: #6c63ff;
+        }
+    </style>
 </head>
 <body>
     <div class="dashboard">
@@ -90,14 +236,194 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Filled by JavaScript -->
+                        <tr>
+                            <td>Motorcycle Batteries</td>
+                            <td>BAT-YTX-001</td>
+                            <td>45</td>
+                            <td>50</td>
+                            <td><span class="status-badge status-risk">At Risk</span></td>
+                            <td>
+                                <button class="action-btn" title="Edit"><span class="material-icons">edit</span></button>
+                                <button class="action-btn delete" title="Delete"><span class="material-icons">delete</span></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Engine Oil (10W-40)</td>
+                            <td>OIL-10W40-002</td>
+                            <td>32</td>
+                            <td>30</td>
+                            <td><span class="status-badge status-warning">Warning</span></td>
+                            <td>
+                                <button class="action-btn" title="Edit"><span class="material-icons">edit</span></button>
+                                <button class="action-btn delete" title="Delete"><span class="material-icons">delete</span></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Drive Chains</td>
+                            <td>CHN-520-003</td>
+                            <td>120</td>
+                            <td>50</td>
+                            <td><span class="status-badge status-good">Good</span></td>
+                            <td>
+                                <button class="action-btn" title="Edit"><span class="material-icons">edit</span></button>
+                                <button class="action-btn delete" title="Delete"><span class="material-icons">delete</span></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Brake Pads</td>
+                            <td>BRK-PAD-004</td>
+                            <td>15</td>
+                            <td>20</td>
+                            <td><span class="status-badge status-risk">At Risk</span></td>
+                            <td>
+                                <button class="action-btn" title="Edit"><span class="material-icons">edit</span></button>
+                                <button class="action-btn delete" title="Delete"><span class="material-icons">delete</span></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Motorcycle Spark Plugs</td>
+                            <td>SPK-NGK-005</td>
+                            <td>65</td>
+                            <td>40</td>
+                            <td><span class="status-badge status-good">Good</span></td>
+                            <td>
+                                <button class="action-btn" title="Edit"><span class="material-icons">edit</span></button>
+                                <button class="action-btn delete" title="Delete"><span class="material-icons">delete</span></button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
+    <!-- Add Item Modal and Success Toast (should be outside .dashboard, just before </body>) -->
+    <div id="addItemModal" class="modal-overlay" style="display:none;">
+        <div class="modal-content">
+            <button type="button" class="modal-close" id="closeAddItem" title="Close">&times;</button>
+            <h2>Add Inventory Item</h2>
+            <form id="addItemForm">
+                <div class="form-group">
+                    <label for="itemName">Item Name</label>
+                    <input type="text" id="itemName" required />
+                </div>
+                <div class="form-group">
+                    <label for="itemSKU">SKU</label>
+                    <input type="text" id="itemSKU" required />
+                </div>
+                <div class="form-group">
+                    <label for="itemStock">Current Stock</label>
+                    <input type="number" id="itemStock" min="0" required />
+                </div>
+                <div class="form-group">
+                    <label for="itemThreshold">Threshold</label>
+                    <input type="number" id="itemThreshold" min="0" required />
+                </div>
+                <div class="form-group">
+                    <label for="itemStatus">Status</label>
+                    <select id="itemStatus" required>
+                        <option value="Good">Good</option>
+                        <option value="Warning">Warning</option>
+                        <option value="At Risk">At Risk</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="scanBarcodeBtn">
+                        <span class="material-icons" style="vertical-align: middle;">qr_code_scanner</span> Scan Barcode
+                    </button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-outline" id="cancelAddItem">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="addItemSuccess" class="success-toast" style="display:none;">Item successfully added!</div>
+    <div id="barcodeToast" class="success-toast" style="display:none; background:#2E3A8C;">Barcode scanner coming soon!</div>
+
     <script src="js/inventory.js"></script>
     <script src="js/script.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const addItemBtn = document.querySelector('.header-actions .btn.btn-primary');
+        const addItemModal = document.getElementById('addItemModal');
+        const closeAddItem = document.getElementById('closeAddItem');
+        const cancelAddItem = document.getElementById('cancelAddItem');
+        const addItemForm = document.getElementById('addItemForm');
+        const addItemSuccess = document.getElementById('addItemSuccess');
+        const scanBarcodeBtn = document.getElementById('scanBarcodeBtn');
+
+        // Open modal
+        addItemBtn.onclick = function() {
+            addItemModal.style.display = 'flex';
+        };
+        // Close modal
+        closeAddItem.onclick = cancelAddItem.onclick = function() {
+            addItemModal.style.display = 'none';
+            addItemForm.reset();
+        };
+        addItemModal.onclick = function(e) {
+            if (e.target === addItemModal) {
+                addItemModal.style.display = 'none';
+                addItemForm.reset();
+            }
+        };
+        // Barcode button
+        scanBarcodeBtn.onclick = function() {
+            addItemModal.style.display = 'none';
+            addItemForm.reset();
+            window.location.href = 'scan.html';
+        };
+
+        // Add item
+        addItemForm.onsubmit = function(e) {
+            e.preventDefault();
+            // Simple validation
+            let valid = true;
+            Array.from(addItemForm.elements).forEach(el => {
+                if ((el.tagName === 'INPUT' || el.tagName === 'SELECT') && el.type !== 'submit' && el.type !== 'button') {
+                    if (!el.value || (el.type === 'number' && el.value < 0)) {
+                        el.classList.add('invalid');
+                        valid = false;
+                    } else {
+                        el.classList.remove('invalid');
+                    }
+                }
+            });
+            if (!valid) return;
+
+            // Add row
+            const name = document.getElementById('itemName').value;
+            const sku = document.getElementById('itemSKU').value;
+            const stock = document.getElementById('itemStock').value;
+            const threshold = document.getElementById('itemThreshold').value;
+            const status = document.getElementById('itemStatus').value;
+            let badgeClass = 'status-good';
+            if (status === 'Warning') badgeClass = 'status-warning';
+            if (status === 'At Risk') badgeClass = 'status-risk';
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${name}</td>
+                <td>${sku}</td>
+                <td>${stock}</td>
+                <td>${threshold}</td>
+                <td><span class="status-badge ${badgeClass}">${status}</span></td>
+                <td>
+                    <button class="action-btn" title="Edit"><span class="material-icons">edit</span></button>
+                    <button class="action-btn delete" title="Delete"><span class="material-icons">delete</span></button>
+                </td>
+            `;
+            document.getElementById('inventoryTable').querySelector('tbody').appendChild(row);
+
+            // Show toast
+            addItemSuccess.style.display = 'block';
+            setTimeout(() => { addItemSuccess.style.display = 'none'; }, 2200);
+
+            // Close modal and reset
+            addItemModal.style.display = 'none';
+            addItemForm.reset();
+            console.log('Item added!');
+        };
+    });
+    </script>
 </body>
 </html>

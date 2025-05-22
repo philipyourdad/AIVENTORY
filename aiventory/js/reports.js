@@ -12,6 +12,60 @@ document.addEventListener('DOMContentLoaded', function() {
         { id: 5, name: 'Motorcycle Spark Plugs', sku: 'SPK-NGK-005', currentStock: 65, threshold: 40, status: 'Good' }
     ];
     
+    // Sample purchase data for different time periods
+    const purchaseData = {
+        '7days': [
+            { id: 2, name: 'Engine Oil (10W-40)', count: 45, percent: 12 },
+            { id: 1, name: 'Motorcycle Batteries', count: 32, percent: 8 },
+            { id: 5, name: 'Motorcycle Spark Plugs', count: 28, percent: 6 },
+            { id: 4, name: 'Brake Pads', count: 20, percent: 4 },
+            { id: 3, name: 'Drive Chains', count: 15, percent: 3 }
+        ],
+        '30days': [
+            { id: 2, name: 'Engine Oil (10W-40)', count: 156, percent: 44 },
+            { id: 1, name: 'Motorcycle Batteries', count: 98, percent: 31 },
+            { id: 5, name: 'Motorcycle Spark Plugs', count: 87, percent: 29 },
+            { id: 4, name: 'Brake Pads', count: 65, percent: 22 },
+            { id: 3, name: 'Drive Chains', count: 42, percent: 19 }
+        ],
+        '90days': [
+            { id: 2, name: 'Engine Oil (10W-40)', count: 432, percent: 43 },
+            { id: 1, name: 'Motorcycle Batteries', count: 287, percent: 31 },
+            { id: 5, name: 'Motorcycle Spark Plugs', count: 256, percent: 36 },
+            { id: 4, name: 'Brake Pads', count: 198, percent: 22 },
+            { id: 3, name: 'Drive Chains', count: 145, percent: 17 }
+        ]
+    };
+    
+    // Function to update the ranking bar list
+    function updateRankingBarList(timePeriod) {
+        const rankingBarList = document.getElementById('rankingBarList');
+        if (!rankingBarList) return;
+        rankingBarList.innerHTML = '';
+        const data = purchaseData[timePeriod] || purchaseData['30days'];
+        const maxCount = Math.max(...data.map(item => item.count));
+        data.forEach((item, idx) => {
+            const barItem = document.createElement('div');
+            barItem.className = 'ranking-bar-item';
+            barItem.innerHTML = `
+                <div class="product-label">${item.name}</div>
+                <div class="bar-container">
+                    <div class="bar-fill" style="width: ${Math.round((item.count / maxCount) * 100)}%"></div>
+                </div>
+                <div class="bar-info">
+                    <span class="units-badge">${item.count}u</span>
+                    <span class="percent-badge">+${item.percent}%</span>
+                </div>
+            `;
+            rankingBarList.appendChild(barItem);
+        });
+    }
+    
+    // Replace updateRankingList with updateRankingBarList
+    function updateRankingList(timePeriod) {
+        updateRankingBarList(timePeriod);
+    }
+    
     // Calculate totals
     const totalItems = inventoryItems.length;
     const atRiskItems = inventoryItems.filter(item => item.status === 'At Risk').length;
@@ -28,13 +82,17 @@ document.addEventListener('DOMContentLoaded', function() {
     
     timePeriodSelect.addEventListener('change', function() {
         customDateRange.style.display = this.value === 'custom' ? 'block' : 'none';
+        updateRankingBarList(this.value);
     });
 
     // Initialize charts
     const turnoverCtx = document.getElementById('turnoverChart');
     const stockoutCtx = document.getElementById('stockoutChart');
     const demandCtx = document.getElementById('demandChart');
-
+    
+    // Initialize ranking bar list with default time period
+    updateRankingBarList('30days');
+    
     // Inventory Turnover Chart - based on our motorcycle parts
     const turnoverChart = new Chart(turnoverCtx, {
         type: 'bar',
