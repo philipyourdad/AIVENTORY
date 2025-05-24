@@ -23,10 +23,9 @@
             display: flex;
             align-items: center;
             gap: 18px;
-            padding: 0 22px;
+            padding: 12px 22px;
             background: #fff;
-            
-            min-height: 54px;
+            min-height: 70px;
             box-shadow: 0 1px 4px rgba(44,62,80,0.04);
             transition: box-shadow 0.2s, background 0.2s;
             position: relative;
@@ -41,12 +40,15 @@
             font-weight: 600;
             color: var(--dark, #222);
             font-size: 1.08rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
             display: flex;
-            align-items: center;
-            gap: 8px;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .product-category {
+            font-size: 0.85rem;
+            color: #888;
+            white-space: normal;
+            word-break: break-word;
         }
         .product-label .material-icons {
             font-size: 1.15rem;
@@ -369,8 +371,8 @@
             
             
             <div class="report-container">
-                <div class="report-summary">
-                    <div class="summary-card">
+                <div class="report-summary" style="display: flex; gap: 20px;">
+                    <div class="summary-card" style="width: 20%; min-width: 200px;">
                         <h3>Inventory Status</h3>
                         <div class="summary-stats">
                             <div class="stat-item">
@@ -387,7 +389,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+                    <div class="card" style="width: 80%;">
                         <div class="card-header" style="display: flex; align-items: center; gap: 6px;">
                             <span>Most Bought Products</span>
                             <span class="material-icons">trending_up</span>

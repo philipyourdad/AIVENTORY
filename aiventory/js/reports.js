@@ -12,32 +12,32 @@ document.addEventListener('DOMContentLoaded', function() {
         { id: 5, name: 'Motorcycle Spark Plugs', sku: 'SPK-NGK-005', currentStock: 65, threshold: 40, status: 'Good' }
     ];
     
-    // Sample purchase data for different time periods
+    // Sample purchase data for different time periods (updated with categories)
     const purchaseData = {
         '7days': [
-            { id: 2, name: 'Engine Oil (10W-40)', count: 45, percent: 12 },
-            { id: 1, name: 'Motorcycle Batteries', count: 32, percent: 8 },
-            { id: 5, name: 'Motorcycle Spark Plugs', count: 28, percent: 6 },
-            { id: 4, name: 'Brake Pads', count: 20, percent: 4 },
-            { id: 3, name: 'Drive Chains', count: 15, percent: 3 }
+            { id: 2, name: 'Engine Oil (10W-40)', count: 45, percent: 12, category: 'Lubricants' },
+            { id: 1, name: 'Motorcycle Batteries', count: 32, percent: 8, category: 'Electrical' },
+            { id: 5, name: 'Motorcycle Spark Plugs', count: 28, percent: 6, category: 'Electrical' },
+            { id: 4, name: 'Brake Pads', count: 20, percent: 4, category: 'Brakes' },
+            { id: 3, name: 'Drive Chains', count: 15, percent: 3, category: 'Transmission' }
         ],
         '30days': [
-            { id: 2, name: 'Engine Oil (10W-40)', count: 156, percent: 44 },
-            { id: 1, name: 'Motorcycle Batteries', count: 98, percent: 31 },
-            { id: 5, name: 'Motorcycle Spark Plugs', count: 87, percent: 29 },
-            { id: 4, name: 'Brake Pads', count: 65, percent: 22 },
-            { id: 3, name: 'Drive Chains', count: 42, percent: 19 }
+            { id: 2, name: 'Engine Oil (10W-40)', count: 156, percent: 44, category: 'Lubricants' },
+            { id: 1, name: 'Motorcycle Batteries', count: 98, percent: 31, category: 'Electrical' },
+            { id: 5, name: 'Motorcycle Spark Plugs', count: 87, percent: 29, category: 'Electrical' },
+            { id: 4, name: 'Brake Pads', count: 65, percent: 22, category: 'Brakes' },
+            { id: 3, name: 'Drive Chains', count: 42, percent: 19, category: 'Transmission' }
         ],
         '90days': [
-            { id: 2, name: 'Engine Oil (10W-40)', count: 432, percent: 43 },
-            { id: 1, name: 'Motorcycle Batteries', count: 287, percent: 31 },
-            { id: 5, name: 'Motorcycle Spark Plugs', count: 256, percent: 36 },
-            { id: 4, name: 'Brake Pads', count: 198, percent: 22 },
-            { id: 3, name: 'Drive Chains', count: 145, percent: 17 }
+            { id: 2, name: 'Engine Oil (10W-40)', count: 432, percent: 43, category: 'Lubricants' },
+            { id: 1, name: 'Motorcycle Batteries', count: 287, percent: 31, category: 'Electrical' },
+            { id: 5, name: 'Motorcycle Spark Plugs', count: 256, percent: 36, category: 'Electrical' },
+            { id: 4, name: 'Brake Pads', count: 198, percent: 22, category: 'Brakes' },
+            { id: 3, name: 'Drive Chains', count: 145, percent: 17, category: 'Transmission' }
         ]
     };
     
-    // Function to update the ranking bar list
+    // Function to update the ranking bar list (updated to include categories)
     function updateRankingBarList(timePeriod) {
         const rankingBarList = document.getElementById('rankingBarList');
         if (!rankingBarList) return;
@@ -48,7 +48,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const barItem = document.createElement('div');
             barItem.className = 'ranking-bar-item';
             barItem.innerHTML = `
-                <div class="product-label">${item.name}</div>
+                <div class="product-label">
+                    ${item.name}
+                    <div class="product-category" style="font-size: 0.85rem; color: #888; margin-top: 4px;">${item.category}</div>
+                </div>
                 <div class="bar-container">
                     <div class="bar-fill" style="width: ${Math.round((item.count / maxCount) * 100)}%"></div>
                 </div>
